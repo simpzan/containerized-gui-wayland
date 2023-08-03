@@ -1,5 +1,14 @@
 FROM registry.fedoraproject.org/fedora-minimal:37
-RUN microdnf install -y --setopt install_weak_deps=0 busybox spice-html5 python3-websockify novnc weston labwc sway wayvnc dbus-daemon procps-ng foot wofi bemenu google-noto-naskh-arabic-fonts dejavu-fonts-all ; microdnf clean all 
+RUN microdnf install -y --setopt install_weak_deps=0 busybox spice-html5 python3-websockify novnc \
+    weston labwc sway wayvnc dbus-daemon procps-ng foot wofi bemenu \
+    google-noto-naskh-arabic-fonts dejavu-fonts-all
+RUN microdnf install -y --setopt install_weak_deps=0 vulkan-tools vulkan-loader-devel mesa-vulkan-drivers
+RUN microdnf install -y --setopt meson dnf
+RUN dnf install -y 'dnf-command(builddep)' llvm13-devel.x86_64 && dnf builddep mesa -y
+RUN dnf install -y cmake glfw-devel.x86_64 assimp-devel.x86_64 freetype-devel.x86_64 \
+    glm-devel.noarch tinyobjloader-devel.x86_64 stb_image-devel.x86_64 \
+    wayland-devel libxkbcommon-devel wayland-protocols-devel extra-cmake-modules
+# RUN microdnf clean all
 
 RUN mkdir /opt/busybox; \
     /sbin/busybox --install -s /opt/busybox
