@@ -40,6 +40,23 @@ vkt.run() {
     cd /home/simpzan/VulkanTutorial/code/build/15_hello_triangle
     ./15_hello_triangle
 }
+LearnOpenGL.build() {
+    git clone https://github.com/JoeyDeVries/LearnOpenGL.git --depth=1
+    cd LearnOpenGL
+    mkdir build && cd build
+    cmake ..
+    make
+}
+VulkanTutorial.build() {
+    set -x
+    git clone https://github.com/Overv/VulkanTutorial.git --depth=1
+    cd VulkanTutorial/
+    # git checkout 1dbd594
+    cd code
+    mkdir build && cd build
+    cmake ..
+    make
+}
 glfw.install() {
     git clone https://github.com/glfw/glfw.git -b 3.3.8
     cd glfw
