@@ -3,7 +3,7 @@ RUN microdnf install -y --setopt install_weak_deps=0 busybox spice-html5 python3
     weston labwc sway wayvnc dbus-daemon procps-ng foot wofi bemenu \
     google-noto-naskh-arabic-fonts dejavu-fonts-all
 RUN microdnf install -y --setopt install_weak_deps=0 vulkan-tools vulkan-loader-devel mesa-vulkan-drivers
-RUN microdnf install -y --setopt meson dnf
+RUN microdnf install -y --setopt install_weak_deps=0 meson dnf
 RUN dnf install -y 'dnf-command(builddep)' llvm13-devel.x86_64 && dnf builddep mesa -y
 RUN dnf install -y cmake glfw-devel.x86_64 assimp-devel.x86_64 freetype-devel.x86_64 \
     glm-devel.noarch tinyobjloader-devel.x86_64 stb_image-devel.x86_64 \
@@ -17,6 +17,7 @@ RUN cp /usr/share/weston/background.png /usr/share/backgrounds/default.png ; \
     busybox adduser -D app ; \
     busybox passwd -l app ; \
     mkdir -p /home/app/tmp ; busybox chown app:app /home/app/tmp
+RUN dnf install -y sudo && echo "app ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 ADD weston-terminal.desktop /usr/share/applications/weston-terminal.desktop
 ADD sway /etc/sway/config.d/sway
 ADD labwc /etc/xdg/labwc
