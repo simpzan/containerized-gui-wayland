@@ -22,6 +22,8 @@ ADD weston-terminal.desktop /usr/share/applications/weston-terminal.desktop
 ADD sway /etc/sway/config.d/sway
 ADD labwc /etc/xdg/labwc
 
+RUN dnf install -y git vim trace-cmd nodejs zip file
+
 USER app
 ENV SHELL=/bin/bash
 ENV PATH=/home/app/.local/bin:/home/app/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/busybox
