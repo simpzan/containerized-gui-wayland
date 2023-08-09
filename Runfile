@@ -44,8 +44,9 @@ radv.run() {
 }
 vkt.run() {
     export WAYLAND_DISPLAY=wayland-0
-    # export DISPLAY=:0
-    export LD_LIBRARY_PATH=/usr/local/lib64/ # use wayland glfw
+    export DISPLAY=:0
+    export XDG_RUNTIME_DIR=/home/app/tmp
+    export LD_LIBRARY_PATH=/usr/local/lib64/:/home/simpzan/repo/glfw/build/src/ # use wayland glfw
     export PATH=/usr/local/bin/:$PATH
     export VK_ICD_FILENAMES="/home/simpzan/mesa3d/out/share/vulkan/icd.d/radeon_icd.x86_64.json"
     cd /home/simpzan/VulkanTutorial/code/build/15_hello_triangle
@@ -64,11 +65,11 @@ VulkanTutorial.build() {
     cd VulkanTutorial/
     # git checkout 1dbd594
     cd code
-    mkdir build && cd build
-    export CFLAGS="-O0"
-    export CXXFLAGS="-O0"
-    cmake .. -DNDEBUG=1
-    make 15_hello_triangle
+    mkdir -p build && cd build
+    export CFLAGS="-gdwarf-4 -DNDEBUG=1"
+    export CXXFLAGS="-gdwarf-4 -DNDEBUG=1"
+    cmake .. -DCMAKE_BUILD_TYPE=Debug
+    cmake --build . --verbose -t 15_hello_triangle
 }
 glfw.install() {
     git clone https://github.com/glfw/glfw.git -b 3.3.8
