@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+docker.test() {
+    local name=mesa
+    docker rm -f $name || true
+    # docker rmi $name || true
+    docker build . -t $name
+    docker run --privileged -dt \
+        -v /dev/dri/:/dev/dri/ \
+        -v $HOME:$HOME \
+        -p 8082:8080 -p 5902:5900 \
+        --name $name \
+        $name
+}
+
+docker.start() {
+    dbus-daemon --session --nofork --nopidfile --nosyslog --print-address > ~/tmp/dbus.addr.txt &
+    sleep 1
+    export DBUS_SESSION_BUS_ADDRESS=`cat ~/tmp/dbus.addr.txt`
+    sway &
+    sleep 1
+    foot &
+    wayvnc 0.0.0.0
+}
+
+help() { echo "run, the minimalist's task runner - https://github.com/simpzan/run"; }
+.tasks() { compgen -A function | grep -v "^\."; }
+${@:-.tasks}
