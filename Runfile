@@ -20,15 +20,15 @@ test.run() {
 mesa.build() {
     # git checkout 4ee0a7e796547887344ded7526be0472db4c8d4e # 22.3.7
     mkdir -p tmp/
-    # rm -rf tmp/*
+    rm -rf tmp/*
     local ogl=radeonsi,swrast
     ogl=
     meson setup tmp/ \
         -Dprefix=`pwd`/out \
         -Dvulkan-drivers=amd \
         -Dgallium-drivers=$ogl \
-        -Dc_args="-O0 -Wno-error=return-type" \
-        -Dcpp_args="-O0 -Wno-error=return-type"
+        -Dc_args="-gdwarf-4" \
+        -Dcpp_args="-gdwarf-4"
     meson compile -C tmp/
     meson install -C tmp/
 }
