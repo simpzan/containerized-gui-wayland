@@ -19,14 +19,17 @@ test.run() {
 }
 mesa.build() {
     # git checkout 4ee0a7e796547887344ded7526be0472db4c8d4e # 22.3.7
+    cd /home/simpzan/mesa3d/
     mkdir -p tmp/
     rm -rf tmp/*
-    local ogl=radeonsi,swrast
-    ogl=
+    local ogl=radeonsi
+    local vk=amd; vk=
     meson setup tmp/ \
         -Dprefix=`pwd`/out \
-        -Dvulkan-drivers=amd \
+        -Dvulkan-drivers=$vk \
         -Dgallium-drivers=$ogl \
+        -Dgallium-vdpau=disabled \
+        -Dgallium-va=disabled \
         -Dc_args="-gdwarf-4" \
         -Dcpp_args="-gdwarf-4"
     meson compile -C tmp/
@@ -71,6 +74,9 @@ LearnOpenGL.run() {
     export LD_LIBRARY_PATH=
     export LD_LIBRARY_PATH=/home/simpzan/repo/glfw/build/src/:$LD_LIBRARY_PATH
     export LD_LIBRARY_PATH=/home/simpzan/repo/fftrace/libtrace/linux.x86_64/:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH="/home/simpzan/mesa3d/out/lib64/":$LD_LIBRARY_PATH
+    # export WAYLAND_DEBUG=1
+    glxinfo
     cd /home/simpzan/LearnOpenGL/bin/1.getting_started/
     ./1.getting_started__4.1.textures
 }
