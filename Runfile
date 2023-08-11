@@ -55,11 +55,24 @@ vkt.run() {
     ./15_hello_triangle
 }
 LearnOpenGL.build() {
-    git clone https://github.com/JoeyDeVries/LearnOpenGL.git --depth=1
-    cd LearnOpenGL
-    mkdir build && cd build
-    cmake ..
-    make
+    # git clone https://github.com/JoeyDeVries/LearnOpenGL.git --depth=1
+    cd /home/simpzan/LearnOpenGL
+    rm -rf build bin
+    mkdir -p build && cd build
+    export CFLAGS="-gdwarf-4 -DNDEBUG=1"
+    export CXXFLAGS="-gdwarf-4 -DNDEBUG=1"
+    cmake .. -DCMAKE_BUILD_TYPE=Debug
+    cmake --build . -t 1.getting_started__4.1.textures
+}
+LearnOpenGL.run() {
+    export WAYLAND_DISPLAY=wayland-0
+    export DISPLAY=:0
+    export XDG_RUNTIME_DIR=/home/app/tmp
+    export LD_LIBRARY_PATH=
+    export LD_LIBRARY_PATH=/home/simpzan/repo/glfw/build/src/:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=/home/simpzan/repo/fftrace/libtrace/linux.x86_64/:$LD_LIBRARY_PATH
+    cd /home/simpzan/LearnOpenGL/bin/1.getting_started/
+    ./1.getting_started__4.1.textures
 }
 VulkanTutorial.build() {
     set -x
