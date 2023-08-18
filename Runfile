@@ -30,8 +30,8 @@ mesa.build() {
         -Dgallium-drivers=$ogl \
         -Dgallium-vdpau=disabled \
         -Dgallium-va=disabled \
-        -Dc_args="-gdwarf-4" \
-        -Dcpp_args="-gdwarf-4"
+        -Dc_args="-gdwarf-4 -O1" \
+        -Dcpp_args="-gdwarf-4 -O1"
     meson compile -C tmp/
     meson install -C tmp/
 }
