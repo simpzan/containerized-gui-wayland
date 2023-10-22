@@ -14,6 +14,9 @@ RUN groupadd -g $GID -o $UNAME && \
     echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN mkdir -p /home/app/tmp; chown app:app /home/app/tmp
+RUN apt-get install -y python3-websockify python3-numpy curl
+RUN curl -L https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz | tar -xz
+
 COPY Runfile /
 
 USER app
