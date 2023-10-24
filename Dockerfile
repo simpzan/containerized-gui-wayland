@@ -23,6 +23,8 @@ ADD sway /etc/sway/config.d/sway
 ADD labwc /etc/xdg/labwc
 
 RUN dnf install -y git vim trace-cmd nodejs zip file
+RUN dnf install -y fzf && \
+    echo '[[ -x "$(command -v fzf)" ]] && source /usr/share/fzf/shell/key-bindings.bash' > /etc/profile.d/fzf.sh
 
 USER app
 ENV SHELL=/bin/bash
