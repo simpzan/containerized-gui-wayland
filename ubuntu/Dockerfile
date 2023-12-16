@@ -17,6 +17,7 @@ RUN mkdir -p /home/app/tmp; chown app:app /home/app/tmp
 RUN apt-get install -y python3-websockify python3-numpy curl
 RUN curl -L https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz | tar -xz
 
+RUN echo "output HEADLESS-1 mode 1920x1080@30Hz" > /etc/sway/config.d/mode.config
 COPY Runfile /
 
 USER app
