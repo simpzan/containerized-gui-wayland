@@ -18,11 +18,7 @@ docker.start() {
     dbus-daemon --session --nofork --nopidfile --nosyslog --print-address > ~/tmp/dbus.addr.txt &
     sleep 1
     export DBUS_SESSION_BUS_ADDRESS=`cat ~/tmp/dbus.addr.txt`
-    sway &
-    sleep 1
-    foot &
-    websockify -D --web=/noVNC-1.3.0 8080 localhost:5900
-    wayvnc 0.0.0.0 5900
+    labwc -C /etc/xdg/labwc/ --debug
 }
 
 help() { echo "run, the minimalist's task runner - https://github.com/simpzan/run"; }

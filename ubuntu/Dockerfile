@@ -3,7 +3,8 @@ SHELL ["/bin/bash", "-c"]
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y ca-certificates sudo
 COPY ustc.sources.list /etc/apt/sources.list
-RUN apt-get update && apt-get install -y sway wayvnc xwayland vulkan-tools
+
+RUN apt-get update && apt-get install -y foot wayvnc xwayland vulkan-tools
 
 ARG UNAME=app
 ARG UID=1000
@@ -17,7 +18,11 @@ RUN mkdir -p /home/app/tmp; chown app:app /home/app/tmp
 RUN apt-get install -y python3-websockify python3-numpy curl
 RUN curl -L https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz | tar -xz
 
-RUN echo "output HEADLESS-1 mode 1920x1080@30Hz" > /etc/sway/config.d/mode.config
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository ppa:samoilov-lex/labwc
+RUN apt-get update && apt-get install -y labwc
+ADD labwc /etc/xdg/labwc
+
 COPY Runfile /
 
 USER app
