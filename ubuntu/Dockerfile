@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y labwc
 ADD labwc /etc/xdg/labwc
 
 COPY Runfile /
+# RUN /Runfile firefox.install
 
 USER app
 ENV XDG_RUNTIME_DIR=/home/app/tmp/
